@@ -1,8 +1,8 @@
-let store = {}
-
-const globalStore = {
+let store = {
 	data: []
 }
+
+const globalStore = {}
 
 globalStore.set = (key, value) => {
 	store = { ...store, [key]: value }
