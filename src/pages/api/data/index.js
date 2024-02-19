@@ -1,10 +1,9 @@
-import { db } from '@/db/lowdbService'
+import globalStore from "@/db/globalStore"
 
 const mock = async (req, res) => {
 	switch (req.method) {
 		case 'GET': {
-			await db.read()
-			const { data } = db.data
+			const data = globalStore.get('data')
 			return res.status(200).json({
 				message: `get data success!`,
 				data

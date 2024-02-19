@@ -1,14 +1,12 @@
-import { db } from '@/db/lowdbService'
+import globalStore from '@/db/globalStore'
 
 const mock = async (req, res) => {
 	const { name } = req.query
 	switch (req.method) {
 		case 'GET': {
-			await db.read()
-			const { data } = db.data
+			const data = globalStore.get('data')
 			if (data.filter((d) => d.name === name).length < 1) {
-				data.push({ name })
-				await db.write()
+				globalStore.set('data', [...data, { name }])
 				return res.status(201).json({
 					message: `${name} added successfully!`,
 					data: {
