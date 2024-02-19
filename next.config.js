@@ -9,7 +9,7 @@ const nextConfig = {
 	poweredByHeader: false,
 	trailingSlash: false,
 	transpilePackages: [
-		'antd',
+		'antd'
 		// 'rc-util',
 		// '@babel/runtime',
 		// '@ant-design/icons',
@@ -20,6 +20,14 @@ const nextConfig = {
 		// 'rc-table'
 	],
 	reactStrictMode: false,
+	webpack: (config, { isServer }) => {
+		if (!isServer) {
+			config.resolve.fallback = {
+				fs: false
+			}
+		}
+		return config
+	}
 }
 
 module.exports = nextConfig
