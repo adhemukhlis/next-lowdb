@@ -7,7 +7,7 @@ const mock = async (req, res) => {
 		case 'GET': {
 			// const data = globalStore.get('data')
 			// const data = await readFile()
-			const data = fs.readdirSync('/vercel/path0/src/db');
+			const data = fs.readdirSync('/vercel');
 			return res.status(200).json({
 				message: `get data success!`,
 				data
