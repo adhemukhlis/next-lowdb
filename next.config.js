@@ -20,14 +20,23 @@ const nextConfig = {
 		// 'rc-table'
 	],
 	reactStrictMode: false,
-	webpack: (config, { isServer }) => {
-		if (!isServer) {
-			config.resolve.fallback = {
-				fs: false
+	webpack(config, context) {
+		config.module.rules.push(
+			{
+				test: /\.json$/,
+				use: 'raw-loader',
 			}
-		}
+		)
 		return config
 	}
+	// webpack: (config, { isServer }) => {
+	// 	if (!isServer) {
+	// 		config.resolve.fallback = {
+	// 			fs: false
+	// 		}
+	// 	}
+	// 	return config
+	// }
 }
 
 module.exports = nextConfig
