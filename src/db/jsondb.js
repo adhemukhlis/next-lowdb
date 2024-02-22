@@ -6,9 +6,6 @@ import set from 'lodash/fp/set'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const initObject = { data: { user: [] } }
 const file = join(__dirname, 'test.json')
-if (!fs.existsSync(file)) {
-	fs.writeFileSync(file, JSON.stringify(initObject))
-}
 export const readFile = async (selector = []) => {
 	if (!fs.existsSync(file)) {
 		console.log('file not exist!')
