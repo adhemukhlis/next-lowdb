@@ -10,13 +10,23 @@ if (!fs.existsSync(file)) {
 	fs.writeFileSync(file, JSON.stringify(initObject))
 }
 export const readFile = async (selector = []) => {
-	const jsonString = fs.readFileSync(file, 'utf8')
-	const jsonData = JSON.parse(jsonString)
-	const result = get(jsonData, ['data', ...selector])
-	return result
+	if (!fs.existsSync(file)) {
+		console.log('file not exist!')
+		console.log('create file', file)
+		fs.writeFileSync(file, JSON.stringify(initObject), 'utf-8')
+	}
+	try {
+		const jsonString = fs.readFileSync(file, 'utf8')
+		const jsonData = JSON.parse(jsonString)
+		const result = get(jsonData, ['data', ...selector])
+		return result
+	} catch (error) {
+		return null
+	}
 }
 
 export const writeFile = async (data, selector = []) => {
+	console.log('create file', file)
 	const currentData = await readFile()
 	const _data = set([...selector], data, currentData)
 	fs.writeFileSync(file, JSON.stringify({ data: _data }), 'utf-8')
